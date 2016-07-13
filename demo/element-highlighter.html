@@ -1,0 +1,37 @@
+<html>
+<head>
+  <title></title>
+
+  <style type="text/css">
+    #one {
+      position: fixed;
+
+      top: 40%;
+      left: 40%;
+
+      width: 20%;
+      height: 20%;
+
+      border: 3px navy dashed;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="one"></div>
+
+  <script src="../dist/dom-highlighter.js"></script>
+  <script>
+
+    var ElementHighlighter = DOMHighlighter.ElementHighlighter;
+
+    // create the element hightlighter
+    var elementHl = new ElementHighlighter();
+
+    // get the element to highlight
+    var target = document.querySelector('#one');
+
+    elementHl.attach(target);
+  </script>
+</body>
+</html>
