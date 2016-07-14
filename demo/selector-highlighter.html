@@ -1,0 +1,104 @@
+<html>
+<head>
+  <title></title>
+
+  <style type="text/css">
+    .item {
+      width: 20px;
+      height: 20px;
+      margin: 20px 20px;
+
+      float: left;
+
+      border: 3px red solid;
+    }
+
+    .multiple-of-3 {
+      border: 3px navy dashed;
+    }
+
+    .multiple-of-5 {
+      background-color: skyblue;
+    }
+
+    .multiple-of-7 {
+      border: 3px magenta dotted;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="item-container"></div>
+
+  <script src="../dist/dom-highlighter.js"></script>
+
+  <script>
+    // setup elements
+    var itemContainer = document.querySelector('#item-container');
+
+    function createItem(index) {
+
+      var multipleOf3 = (index % 3 === 0);
+      var multipleOf5 = (index % 5 === 0);
+      var multipleOf7 = (index % 7 === 0);
+
+      var classes = ['item'];
+
+      if (multipleOf3) {
+        classes.push('multiple-of-3');
+      }
+
+      if (multipleOf5) {
+        classes.push('multiple-of-5');
+      }
+
+      if (multipleOf7) {
+        classes.push('multiple-of-7');
+      }
+
+      var element = document.createElement('div');
+      element.className = classes.join(' ');
+
+      itemContainer.appendChild(element);
+    }
+
+
+    var i = 0;
+
+    while (i < 200) {
+
+      createItem(i);
+
+      i += 1;
+    }
+  </script>
+
+
+  <script>
+
+    var SelectorHighlighter = DOMHighlighter.SelectorHighlighter;
+
+    // create the element hightlighter
+    var selectorHl = new SelectorHighlighter();
+
+    window.addEventListener('click', function (e) {
+
+      var el = document.elementFromPoint(e.clientX, e.clientY);
+
+      if (el.classList.contains('item')) {
+        var elSelector = Array.prototype.reduce.call(el.classList, function (res, className) {
+          return res + '.' + className;
+        }, '');
+
+        selectorHl.highlight(elSelector);
+      } else {
+        selectorHl.hide();
+      }
+
+    });
+
+    selectorHl.highlight('.item');
+
+  </script>
+</body>
+</html>
