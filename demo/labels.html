@@ -1,0 +1,111 @@
+<html>
+<head>
+  <title>Shapes</title>
+
+  <script src="../dist/dom-highlighter.js"></script>
+
+  <style type="text/css">
+    .corner {
+      position: fixed;
+      background-color: rgba(255, 0, 0, 0.5);
+      
+      height: 100px;
+      width: 100px;
+    }
+    
+    #top-left {
+      top: 0;
+      left: 0;
+    }
+    #top-right {
+      top: 0;
+      right: 0;
+    }
+    #bottom-left {
+      bottom: 0;
+      left: 0;
+    }
+    #bottom-right {
+      bottom: 0;
+      right: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="corner" id="top-left"></div>
+  <div class="corner" id="top-right"></div>
+  <div class="corner" id="bottom-left"></div>
+  <div class="corner" id="bottom-right"></div>
+
+  <script type="text/javascript">
+    // create a label shape
+    var movingLabel = new DOMHighlighter.shapes.Label({
+      attachTo: document.body
+    });
+    movingLabel.update('top-start', {
+      y: 100,
+      x: 100,
+    });
+    movingLabel.show('top-start (click me)');
+    
+    var anchors = ['top-start', 'top-end', 'bottom-start', 'bottom-end'];
+    
+    movingLabel.element.addEventListener('click', function (e) {
+      var idx = anchors.indexOf(movingLabel.anchor);
+      
+      var nextIdx = idx === anchors.length - 1 ? 0 : idx + 1;
+      var next = anchors[nextIdx];
+      
+      movingLabel.update(next, {
+        y: 100,
+        x: 100
+      });
+      
+      movingLabel.show(next);
+    });
+    
+    
+    // create a topLMostLabel shape that is outside and has to reposition itself
+    var topLMostLabel = new DOMHighlighter.shapes.Label({
+      attachTo: document.body
+    });
+    topLMostLabel.update('top-start', {
+      y: 0,
+      x: 0,
+    });
+    topLMostLabel.show('outside and automatically repositioned');
+
+    // create a topRMostLabel shape that is outside and has to reposition itself
+    var topRMostLabel = new DOMHighlighter.shapes.Label({
+      attachTo: document.body
+    });
+    topRMostLabel.update('top-end', {
+      y: 0,
+      x: 0,
+    });
+    topRMostLabel.show('outside and automatically repositioned');
+
+    // create a bottomLMostLabel shape that is outside and has to reposition itself
+    var bottomLMostLabel = new DOMHighlighter.shapes.Label({
+      attachTo: document.body
+    });
+    bottomLMostLabel.update('bottom-start', {
+      y: 0,
+      x: 0,
+    });
+    bottomLMostLabel.show('outside and automatically repositioned');
+
+    // create a bottomRMostLabel shape that is outside and has to reposition itself
+    var bottomRMostLabel = new DOMHighlighter.shapes.Label({
+      attachTo: document.body
+    });
+    bottomRMostLabel.update('bottom-end', {
+      y: 0,
+      x: 0,
+    });
+    bottomRMostLabel.show('outside and automatically repositioned');
+
+  </script>
+
+</body>
+</html>

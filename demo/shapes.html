@@ -1,0 +1,91 @@
+<html>
+<head>
+  <title>Shapes</title>
+
+  <script src="../dist/dom-highlighter.js"></script>
+
+  <style type="text/css">
+    #element {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+
+      transform: translate(-50%, -50%);
+
+      height: 200px;
+      width: 250px;
+
+      /*background-color: skyblue;*/
+
+      border: 4px darkred dashed;
+
+      padding: 100px 10% 50px 10pc;
+      margin: -20% 40px 55px 90px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="element"></div>
+
+  <script type="text/javascript">
+
+    var target = document.querySelector('#element');
+
+    var calculatedRectangles = DOMHighlighter.aux.calcElementRectangles(target);
+    console.log(calculatedRectangles);
+
+    // hash containing rectangle div elements
+    var rectangleDivs = {};
+
+    // element
+    rectangleDivs.element = new DOMHighlighter.shapes.Rectangle(
+      calculatedRectangles.element,
+      {
+        id: 'r-element',
+        color: 'rgba(0, 0, 100, 0.5)',
+        attachTo: document.body,
+      }
+    );
+
+    // padding
+    rectangleDivs.padding = new DOMHighlighter.shapes.HollowRectangle(
+      {
+        outer: calculatedRectangles.padding,
+        inner: calculatedRectangles.element,
+      },
+      {
+        id: 'r-padding',
+        color: 'rgba(0, 100, 0, 0.5)',
+        attachTo: document.body,
+      }
+    );
+    
+    // border
+    rectangleDivs.border = new DOMHighlighter.shapes.HollowRectangle(
+      {
+        outer: calculatedRectangles.border,
+        inner: calculatedRectangles.padding,
+      }, {
+        id: 'r-border',
+        color: 'rgba(255, 0, 0, 0.3)',
+        attachTo: document.body,
+      }
+    );
+    
+    // margin
+    rectangleDivs.margin = new DOMHighlighter.shapes.HollowRectangle(
+      {
+        outer: calculatedRectangles.margin,
+        inner: calculatedRectangles.border,
+      },
+      {
+        id: 'r-margin',
+        color: 'rgba(200, 0, 0, 0.5)',
+        attachTo: document.body,
+      }
+    );
+  </script>
+
+</body>
+</html>
