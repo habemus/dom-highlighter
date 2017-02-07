@@ -440,6 +440,12 @@ function SelectorHighlighter() {
    * @type {Array}
    */
   this.elHighlighters = [];
+
+  /**
+   * Maximum number of element highlighters to be used for the selector highlighter.
+   * @type {Number}
+   */
+  this.maxElHighlighters = 20;
 }
 
 SelectorHighlighter.prototype.highlight = function (cssSelector) {
@@ -457,7 +463,7 @@ SelectorHighlighter.prototype.highlight = function (cssSelector) {
 
   // clone the selectedElements array into an array of elements
   // to be added to the highlight
-  var add  = selectedElements.slice(0);
+  var add  = selectedElements.slice(0, this.maxElHighlighters);
 
   // highlighters that are not in use anymore.
   // they will be either reused or destroyed at the end of
@@ -493,7 +499,7 @@ SelectorHighlighter.prototype.highlight = function (cssSelector) {
   // destroy remaining idle highlighters
   idle.forEach(function (hlt) {
     hlt.destroy();
-  })
+  });
 
   this.update();
   this.show();
