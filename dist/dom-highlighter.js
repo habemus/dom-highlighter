@@ -464,6 +464,9 @@ SelectorHighlighter.prototype.highlight = function (cssSelector) {
   // clone the selectedElements array into an array of elements
   // to be added to the highlight
   var add  = selectedElements.slice(0, this.maxElHighlighters);
+  if (selectedElements.length > this.maxElHighlighters) {
+    console.warn('Attempting to highlight ' + selectedElements.length + ' elements. Will cap to ' + this.maxElHighlighters);
+  }
 
   // highlighters that are not in use anymore.
   // they will be either reused or destroyed at the end of
